@@ -6,7 +6,8 @@ global dropdownListDeltaY := 30
 global tabList := {"currency": 1 ; the order of your tabs
                 , "dump": 2
                 , "map": 3
-                , "sample" :5
+                , "good map": 4
+                , "sample" : 5
                 , "div cards": 7
                 , "fragment": 8
                 , "oil": 10
@@ -49,6 +50,9 @@ GetCatogory() {
     }
     if (InStr(Clipboard, "Fragment") or InStr(Clipboard, "Splinter") or InStr(Clipboard, "Scarab") or InStr(Clipboard, "Vessel") or InStr(Clipboard, "Offering") or InStr(Clipboard, "Sacrifice")) {
         return "fragment"
+    }
+    if (InStr(Clipboard, "Fungal Growths")) {
+        return "good map"
     }
     if (InStr(Clipboard, "Atlas Region")) {
         return "map"
@@ -117,20 +121,18 @@ Scan() {
 }
 
 F2::
-; stash.GotoNthTabAndMouseBack(7)
 Scan()
 return
 
 F3::
 Reload
-Send, ^
 return
 
 IsCurrency() {
     lines := StrSplit(Clipboard, "`n", , 3)
     itemName := lines[2]
     StringTrimRight, itemName, itemName, 1
-    currencyList := ["Blessed Orb", "Silver Coin", "Chaos Shard", "Chromatic Orb", "Engineer's Shard", "Glassblower's Bauble", "Horizon Shard", "Jeweller's Orb", "Orb of Alteration", "Orb of Chance", "Regal Shard", "Blacksmith's Whetstone", "Alteration Shard", "Armourer's Scrap", "Transmutation Shard", "Binding Shard", "Orb of Augmentation", "Alchemy Shard", "Orb of Transmutation", "Portal Scroll", "Scroll of Wisdom", "Exalted Shard", "Awakened Sextant", "Prime Sextant", "Stacked Deck", "Ancient Shard", "Annulment Shard", "Chaos Orb", "Engineer's Orb", "Gemcutter's Prism", "Harbinger's Shard", "Bestiary Orb", "Cartographer's Chisel", "Orb of Alchemy", "Orb of Binding", "Orb of Fusing", "Orb of Horizons", "Orb of Regret", "Orb of Scouring", "Regal Orb", "Vaal Orb", "Simple Sextant", "Fertile Catalyst", "Prismatic Catalyst", "Turbulent Catalyst", "Imbued Catalyst", "Intrinsic Catalyst", "Abrasive Catalyst", "Tempering Catalyst", "Crusader's Exalted Orb", "Redeemer's Exalted Orb", "Hunter's Exalted Orb", "Warlord's Exalted Orb", "Awakener's Orb", "Albino Rhoa Feather", "Eternal Orb", "Exalted Orb", "Mirror of Kalandra", "Mirror Shard", "Ancient Orb", "Divine Orb", "Harbinger's Orb", "Orb of Annulment", "Perandus Coin"]
+    currencyList := ["Stacked Deck", "Blessed Orb", "Silver Coin", "Chaos Shard", "Chromatic Orb", "Engineer's Shard", "Glassblower's Bauble", "Horizon Shard", "Jeweller's Orb", "Orb of Alteration", "Orb of Chance", "Regal Shard", "Blacksmith's Whetstone", "Alteration Shard", "Armourer's Scrap", "Transmutation Shard", "Binding Shard", "Orb of Augmentation", "Alchemy Shard", "Orb of Transmutation", "Portal Scroll", "Scroll of Wisdom", "Exalted Shard", "Awakened Sextant", "Prime Sextant", "Stacked Deck", "Ancient Shard", "Annulment Shard", "Chaos Orb", "Engineer's Orb", "Gemcutter's Prism", "Harbinger's Shard", "Bestiary Orb", "Cartographer's Chisel", "Orb of Alchemy", "Orb of Binding", "Orb of Fusing", "Orb of Horizons", "Orb of Regret", "Orb of Scouring", "Regal Orb", "Vaal Orb", "Simple Sextant", "Fertile Catalyst", "Prismatic Catalyst", "Turbulent Catalyst", "Imbued Catalyst", "Intrinsic Catalyst", "Abrasive Catalyst", "Tempering Catalyst", "Crusader's Exalted Orb", "Redeemer's Exalted Orb", "Hunter's Exalted Orb", "Warlord's Exalted Orb", "Awakener's Orb", "Albino Rhoa Feather", "Eternal Orb", "Exalted Orb", "Mirror of Kalandra", "Mirror Shard", "Ancient Orb", "Divine Orb", "Harbinger's Orb", "Orb of Annulment", "Perandus Coin"]
     return HasVal(currencyList, itemName)
 }
 
@@ -142,4 +144,3 @@ HasVal(haystack, needle) {
 			return index
 	return 0
 }
-
